@@ -19,6 +19,10 @@ namespace KnowledgeCheck1_Calculator
 
         public double Divide(int first, int second)
         {
+            if(second == 0)
+            {
+                throw new DivideByZeroException("Cannot divide by 0.");
+            }
             return (double)first / second;
         }
     }
