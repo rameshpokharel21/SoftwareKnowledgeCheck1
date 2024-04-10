@@ -1,6 +1,7 @@
 ﻿
 using KnowledgeCheck1_Calculator;
- 
+using System.Runtime.ExceptionServices;
+
 var calculator = new Calculator();
 
 string whatOperation = GetUserInstruction();
@@ -11,11 +12,12 @@ while(!whatOperation.Equals("1") && !whatOperation.Equals("2") && !whatOperation
     whatOperation = GetUserInstruction();
 }
 
-string[] numbers = GetUserNumbers();
+(string one, string two) numbers = GetUserNumbers();
+
 
 double numOne;
 double numTwo = 0;
-bool areNumbers = double.TryParse(numbers[0], out numOne) && double.TryParse(numbers[1], out numTwo);
+bool areNumbers = double.TryParse(numbers.one, out numOne) && double.TryParse(numbers.two, out numTwo);
 
 
 while(!areNumbers)
@@ -29,25 +31,25 @@ switch (whatOperation)
 {
     case "1":
 
-        Console.Write($"{numbers[0]} + {numbers[1]} = ");
+        Console.Write($"{numbers.one} + {numbers.two} = ");
         Console.WriteLine(calculator.Add(numOne, numTwo));
         break;
 
     case "2":
 
-        Console.Write($"{numbers[0]} - {numbers[1]} = ");
+        Console.Write($"{numbers.one} - {numbers.two} = ");
         Console.WriteLine(calculator.Subtract(numOne, numTwo));
         break;
 
     case "3":
 
-        Console.Write($"{numbers[0]} X {numbers[1]} = ");
+        Console.Write($"{numbers.one} X {numbers.two} = ");
         Console.WriteLine(calculator.Multiply(numOne, numTwo));
         break;
 
     case "4":
 
-        Console.Write($"\n{numbers[0]} / {numbers[1]} = ");
+        Console.Write($"\n{numbers.one} / {numbers.two} = ");
         Console.WriteLine(calculator.Divide(numOne, numTwo));
         break;
 
@@ -80,14 +82,11 @@ string GetUserInstruction()
 }
 
 
-string[] GetUserNumbers()
+(string first, string second) GetUserNumbers()
 {
     Console.WriteLine($"\nEnter 2 numbers:");
-    string[] inputArray = new string[2];
     string? numberOne = Console.ReadLine() ?? "none";
     string? numberTwo = Console.ReadLine() ?? "none";
-    inputArray[0] = numberOne;
-    inputArray[1] = numberTwo;
-    return inputArray;
+    return (numberOne, numberTwo);
 }
 
