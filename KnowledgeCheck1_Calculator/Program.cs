@@ -2,70 +2,63 @@
 using KnowledgeCheck1_Calculator;
  
 var calculator = new Calculator();
-string whatOpertion = GetUserInstruction();
-string[] numbers = GetUserNumbers();
-bool areIntegers = int.TryParse(numbers[0], out int numOne) && int.TryParse(numbers[1], out int numTwo);
 
-switch (whatOpertion)
+string whatOperation = GetUserInstruction();
+
+while(!whatOperation.Equals("1") && !whatOperation.Equals("2") && !whatOperation.Equals("3") && !whatOperation.Equals("4"))
+{
+    Console.WriteLine("Wrong input.");
+    whatOperation = GetUserInstruction();
+}
+
+string[] numbers = GetUserNumbers();
+
+double numOne;
+double numTwo = 0;
+bool areNumbers = double.TryParse(numbers[0], out numOne) && double.TryParse(numbers[1], out numTwo);
+
+
+while(!areNumbers)
+{
+    Console.WriteLine("One or more of the numbers is not a number");
+    numbers = GetUserNumbers();
+    
+} 
+
+switch (whatOperation)
 {
     case "1":
-        if(areIntegers)
-        {
-            numTwo = int.Parse(numbers[1]);
-            Console.Write($"{numbers[0]} + {numbers[1]} = ");
-            Console.WriteLine(calculator.Add(numOne, numTwo));
-        }
-        else
-        {
-            Console.WriteLine("One or more of the numbers is not an int");
-        }
+
+        Console.Write($"{numbers[0]} + {numbers[1]} = ");
+        Console.WriteLine(calculator.Add(numOne, numTwo));
         break;
 
     case "2":
-        if(areIntegers)
-        {
-            numTwo = int.Parse(numbers[1]);
-            Console.Write($"{numbers[0]} - {numbers[1]} = ");
-            Console.WriteLine(calculator.Subtract(numOne, numTwo));
-            Console.WriteLine();
-        }
-        else
-        {
-            Console.WriteLine("One or more of the numbers is not an int");
-        }
+
+        Console.Write($"{numbers[0]} - {numbers[1]} = ");
+        Console.WriteLine(calculator.Subtract(numOne, numTwo));
         break;
 
     case "3":
-        if(areIntegers)
-        {
-            numTwo = int.Parse(numbers[1]);
-            Console.Write($"{numbers[0]} X {numbers[1]} = ");
-            Console.WriteLine(calculator.Multiply(numOne, numTwo));
-        }
-        else
-        {
-            Console.WriteLine("One or more of the numbers is not an int");
-        }
+
+        Console.Write($"{numbers[0]} X {numbers[1]} = ");
+        Console.WriteLine(calculator.Multiply(numOne, numTwo));
         break;
 
     case "4":
-        if(areIntegers)
-        {
-            numTwo = int.Parse(numbers[1]);
-            Console.Write($"\n{numbers[0]} / {numbers[1]} = ");
-            Console.WriteLine(calculator.Divide(numOne, numTwo));
-        }
-        else
-        {
-            Console.WriteLine("One or more of the numbers is not an int");
-        }
+
+        Console.Write($"\n{numbers[0]} / {numbers[1]} = ");
+        Console.WriteLine(calculator.Divide(numOne, numTwo));
         break;
-        
+
 
     default:
-        Console.WriteLine("Unknown input");
+        Console.WriteLine("Unknown Error.");
         break;
 }
+
+
+
 
 Console.WriteLine();
 
@@ -89,7 +82,7 @@ string GetUserInstruction()
 
 string[] GetUserNumbers()
 {
-    Console.WriteLine($"\nEnter 2 integers:");
+    Console.WriteLine($"\nEnter 2 numbers:");
     string[] inputArray = new string[2];
     string? numberOne = Console.ReadLine() ?? "none";
     string? numberTwo = Console.ReadLine() ?? "none";
